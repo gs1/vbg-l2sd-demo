@@ -385,25 +385,26 @@ window.onload = init;
 function init() {
   // get the data, populate and set up the selector
   const payload = getPayload();
-  let selector = document.getElementById('gtinSelector');
+  const params = new URLSearchParams(window.location.search);
+  const selector = document.getElementById('gtinSelector');
+  let data;
   for (let i in payload) {
     let option = document.createElement('option');
     option.value = payload[i].gtin;
-//    if (typeof payload[i].productDescription === 'object') {
-      option.appendChild(document.createTextNode(payload[i].gtin));
-//    } else {
-//      option.appendChild(document.createTextNode(`GTIN ${payload[i].gtin}`));
-//    }
+    option.appendChild(document.createTextNode(payload[i].gtin));
     selector.appendChild(option);
   }
-  selector.addEventListener('change', function () {showResult(this.value, payload)}, false);
-
+  selector.addEventListener('change', function () {showResult(payload.find(x => x.gtin === this.value))}, false);
+  if ((params.has('gtin')) && (data = payload.find(x => x.gtin === params.get('gtin')))) {
+    selector.value = data.gtin;
+    showResult(data);
+  }
 }
 
 // When the selector changes, this function is called.
 // Everything is in this one function but it comes in sections and could easily be split up as needed.
 
-function showResult(g, payload) {
+function showResult(data) {
 
   // Define and clear the canvas
   const status = document.getElementById('status');
@@ -421,7 +422,7 @@ function showResult(g, payload) {
   // especially when dealing with examples where we have a linkset but no VbG data.
   // Of course the GTIN can always be found in the Linkset's anchor
 
-  const data = payload.find(x => x.gtin === g);
+  //  const data = payload.find(x => x.gtin === g);
 
   // Deal with the status header
   const vbgStatusImage = document.createElement('img');
