@@ -1,2 +1,2 @@
 # vbg-l2sd-demo
-Basic demo for VbG + links to other sources of data
+The simple [https://gs1.github.io/vbg-l2sd-demo/](demo page) shows a Verified by GS1 payload with additional Links to Other Sources of data (L2SD). 
