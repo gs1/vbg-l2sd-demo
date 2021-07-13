@@ -14,6 +14,7 @@
     --bannerHeight: 50px;
   }
 
+/* Basics */
     body {font-family: sans-serif}
 
     header img {
@@ -59,6 +60,8 @@
     }
 
     h1 {color: var(--gs1Blue)}
+
+/* VbG section, single column */
 
     section#vbgHeader {
       margin-bottom: .5em;
@@ -168,6 +171,8 @@
       font-size: 6pt;
     }
 
+/* L2SD section, single column styles */
+
     section#l2sd {
       font-size: 80%;
       background-color: var(--gs1LightGray);
@@ -178,19 +183,13 @@
       padding: 1em 0 0 1em;
     }
 
-    section#l2sd ul#linkset {
-      list-style-type: none;
+    section#l2sd dl#linkset {
       padding-left:0.2em;
       margin-left:0;
     }
 
-    section#l2sd ul#linkset li.linksetListItem {
-      margin-bottom: 1em;
-      padding-top:0.5em;
-      padding-bottom: 0.5em;
-    }
 
-    section#l2sd ul#linkset li a.linkType {
+    section#l2sd dl#linkset dt a.linkType {
       background-color: var(--gs1Success);
       width: 8em;
       height: 2em;
@@ -202,28 +201,32 @@
       margin: 0.5em
     }
 
-    section#l2sd ul#linkset li ul.targetLink {
+    section#l2sd dl#linkset dt {
+      margin-top: 1em;
+    }
+
+    section#l2sd dl#linkset dd {
       margin-left: 1em;
-      padding-left:0;
-      margin-top:1em;
-      border-bottom: thin dotted black;
-      list-style-type: none;
     }
 
-    section#l2sd ul#linkset li ul.targetLink li {
-      margin: 0;
+    section#l2sd dl#linkset dd.href {
+      border-top: thin dotted black;
+      padding-top: .5em;
+      margin-top: 1em;
     }
-    section#l2sd ul#linkset li ul.targetLink li span.toAttribute {
+
+    section#l2sd dl#linkset dd.first {
+      border-top:none;
+    }
+    section#l2sd dl#linkset dd span.toAttribute {
+      display:block;
       width:6em;
-      display: block;
-      font-weight: bold;
     }
 
-    section#l2sd ul#linkset li ul.targetLink li span.toValue {
+    section#l2sd dl#linkset dd span.toValue {
+      padding-left: 1em;
       display: block;
-      margin-left: 2em;
     }
-
 
 /* desktop styles */
 
@@ -299,29 +302,38 @@
       font-size:small;
     }
 
-    /* Desktop linkset */
+  /* grid-based styles for linkset in desktop. All modern browsers will use this,
+  The minority of old browsers still in use will see the single column view.
+  NB - we're still in the wide screen bit, so grid os not used on mobile  */
 
-    section#l2sd ul#linkset li a.linkType {
+    @supports (display: grid) {
+
+      section#l2sd dl#linkset {
+        display: grid;
+        gap: 0;
+        grid-template-columns: 10em 1fr;
+        --top-gap: 10px;
+      }
+
+      section#l2sd dl#linkset dt {
+        grid-column-start: 1;
+        grid-row-end: span 4;
+      }
+
+      section#l2sd dl#linkset dd {
+        grid-column-start: 2;
+        margin-left: 0;
+        padding-left: 1em;
+      }
+
+      section#l2sd dl#linkset dd span.toAttribute, section#l2sd dl#linkset dd span.toValue {
+        display: inline-block;
+      }
+
+      section#l2sd dl#linkset dt, section#l2sd dl#linkset dd.href {
+        border-top: thin dotted black;
+      }
     }
-
-    section#l2sd ul#linkset li ul.targetLink {
-/*      position: relative;
-      left: 10em;
-      top: -6em;
-      width: 60em; */
-      padding-bottom: 1em;
-    }
-
-    section#l2sd ul#linkset li ul.targetLink li span.toAttribute {
-      margin-left: 2em;
-      display: inline-block;
-    }
-
-    section#l2sd ul#linkset li ul.targetLink li span.toValue {
-      display: inline-block;
-    }
-
-
   }
 
   </style>
@@ -353,6 +365,71 @@
 <section id="vbgData"></section>
 
 <section id="l2sd"></section>
+
+<!--
+<section id="l2sd">
+  <h2 id="l2sdHeading">Links to other sources of data</h2>
+  <dl id="linkset">
+    <dt class="linksetListItem"><a class="linkType" href="https://gs1.org/voc/hasRetailers">Has Retailers</a></dt>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/where-to-buy/">https://dalgiardino.com/where-to-buy/</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Where to buy</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">en, es, vi</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/where-to-buy/index.html.es">https://dalgiardino.com/where-to-buy/index.html.es</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Donde comprar Dal Giardino</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">es</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/where-to-buy/index.html.vi">https://dalgiardino.com/where-to-buy/index.html.vi</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Nơi bán</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">vi</span></dd>
+    <dt class="linksetListItem"><a class="linkType" href="https://gs1.org/voc/pip">Product Information Page</a></dt>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/risotto-rice-with-mushrooms/">https://dalgiardino.com/risotto-rice-with-mushrooms/</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Product information</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">en, es, vi, ja</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/risotto-rice-with-mushrooms/index.html.es">https://dalgiardino.com/risotto-rice-with-mushrooms/index.html.es</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Información del Producto</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">es</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/risotto-rice-with-mushrooms/index.html.ja">https://dalgiardino.com/risotto-rice-with-mushrooms/index.html.ja</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Product information</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">ja</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/risotto-rice-with-mushrooms/index.html.vi">https://dalgiardino.com/risotto-rice-with-mushrooms/index.html.vi</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Trang thông tin sản phẩm</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">vi</span></dd>
+    <dt class="linksetListItem"><a class="linkType" href="https://gs1.org/voc/productSustainabilityInfo">Sustainability and recycling</a></dt>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/about/">https://dalgiardino.com/about/</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">About Dal Giardino</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">en, vi, es</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/about/index.html.es">https://dalgiardino.com/about/index.html.es</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Sobre Dal Giardino</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">es</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/about/index.html.vi">https://dalgiardino.com/about/index.html.vi</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Phát triển bền vững và t</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd><dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">vi</span></dd>
+    <dt class="linksetListItem"><a class="linkType" href="https://gs1.org/voc/recipeInfo">Recipe website</a></dt>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/mushroom-squash-risotto/">https://dalgiardino.com/mushroom-squash-risotto/</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Wild Mushroom And Butternut Squash Risotto</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">en, es, ja</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/mushroom-squash-risotto/index.html.es">https://dalgiardino.com/mushroom-squash-risotto/index.html.es</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">Recetas</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">es</span></dd>
+    <dd class="href"><span class="toAttribute">Target URL</span><span class="toValue"><a href="https://dalgiardino.com/mushroom-squash-risotto/index.html.ja">https://dalgiardino.com/mushroom-squash-risotto/index.html.ja</a></span></dd>
+    <dd class="title"><span class="toAttribute">Title</span><span class="toValue">キノコと砕いたバターナッツ入りのリゾット</span></dd>
+    <dd class="type"><span class="toAttribute">Media type</span><span class="toValue">text/html</span></dd>
+    <dd class="hreflang"><span class="toAttribute">Language(s)</span><span class="toValue">ja</span></dd>
+  </dl>
+  <p>Linkset last updated on Sat Feb 13 2021. See also <a href="https://id.gs1.org/01/09506000134352?linkType=all" title="GS1 Global Office Resolver record for GTIN 09506000134352">GS1 Global Office Resolver</a></p>
+</section>
+-->
+
 
 </main>
 </div> <!-- end wrapper -->
@@ -611,8 +688,8 @@ function showResult(data) {
   // that to collect the list of link types in real time but for now we'll use a static copy to retain the
   // 'no live lookup' feature of the demo.
 
-  ul = document.createElement('ul');
-  ul.id = 'linkset';
+  let dl = document.createElement('dl');
+  dl.id = 'linkset';
   if (Array.isArray(data.linkset)) {
     let h2 = document.createElement('h2');
     h2.id="l2sdHeading";
@@ -623,72 +700,78 @@ function showResult(data) {
     for (const i in lsKeys) {
       if (linkTypes.find(x => x.url === lsKeys[i])) {  // So this value of i gives us an object identified by its link type
         // Create the li element and create the big button that is the link type, hyperlinked to its definition
-        let li = document.createElement('li');
-        li.classList.add('linksetListItem');
+        let dt = document.createElement('dt');
+        dt.classList.add('linksetListItem');
         let a = document.createElement('a');
         a.classList.add('linkType');
         a.href = lsKeys[i];
         a.appendChild(document.createTextNode(linkTypes.find(x => x.url === lsKeys[i]).title));
-        li.appendChild(a);
+        dt.appendChild(a);
+        dl.appendChild(dt);
         // For each link type, we have an arragy of target links - link objects.
         // So let's gat that array so we can work through it
         let targetObjects = ls[lsKeys[i]];
+        let firstFlag = true;
         for (const linkObject in targetObjects) {
           // For each element in the array, we list the target object properties and values
-          let toUl = document.createElement('ul') // The imbricated list holder. There is one of these per link object
-          toUl.classList.add('targetLink');
-
-          // Create the first list item and add the target URL attribute name and value in separate spans for styling.
           // Target URL is mandatory
-          let toLi = document.createElement('li');
+          let dd = document.createElement('dd');
+          dd.className = 'href';
+          if (firstFlag) {
+            dd.classList.add('first');
+            firstFlag = false;
+          }
           let attSpan = document.createElement('span');
           attSpan.classList.add('toAttribute');
           attSpan.appendChild(document.createTextNode('Target URL'));
-          toLi.appendChild(attSpan);
+          dd.appendChild(attSpan);
           let vSpan = document.createElement('span');
           vSpan.classList.add('toValue');
           a = document.createElement('a');
           a.href = targetObjects[linkObject].href;
           a.appendChild(document.createTextNode(targetObjects[linkObject].href));
           vSpan.appendChild(a);
-          toLi.appendChild(vSpan);
-          toUl.appendChild(toLi);
+          dd.appendChild(vSpan);
+          dl.appendChild(dd);
 
           // Now add the title, also mandatory
 
-          toLi = document.createElement('li');
+          dd = document.createElement('dd');
+          dd.className = 'title';
           attSpan = document.createElement('span');
           attSpan.classList.add('toAttribute');
           attSpan.appendChild(document.createTextNode('Title'));
-          toLi.appendChild(attSpan);
+          dd.appendChild(attSpan);
           vSpan = document.createElement('span');
           vSpan.classList.add('toValue');
           vSpan.appendChild(document.createTextNode(targetObjects[linkObject].title));
-          toLi.appendChild(vSpan);
-          toUl.appendChild(toLi);
+          dd.appendChild(vSpan);
+          dl.appendChild(dd);
 
           // The rest are optional, we'll start with media type
 
-          if (targetObjects[linkObject].title !== undefined){
-            toLi = document.createElement('li');
+          if (targetObjects[linkObject].type !== undefined){
+            dd = document.createElement('dd');
+            dd.className = 'type';
             attSpan = document.createElement('span');
             attSpan.classList.add('toAttribute');
             attSpan.appendChild(document.createTextNode('Media type'));
-            toLi.appendChild(attSpan);
+            dd.appendChild(attSpan);
             vSpan = document.createElement('span');
             vSpan.classList.add('toValue');
             vSpan.appendChild(document.createTextNode(targetObjects[linkObject].type));
-            toLi.appendChild(vSpan);
-            toUl.appendChild(toLi);
+            dd.appendChild(vSpan);
+            dl.appendChild(dd);
           }
 
           // Languages need a little more work as they are in an array
           if (targetObjects[linkObject].hreflang !== undefined){
-            toLi = document.createElement('li');
+            dd = document.createElement('dd');
+            dd.className = 'hreflang';
             attSpan = document.createElement('span');
             attSpan.classList.add('toAttribute');
             attSpan.appendChild(document.createTextNode('Language(s)'));
-            toLi.appendChild(attSpan);
+            dd.appendChild(attSpan);
             vSpan = document.createElement('span');
             vSpan.classList.add('toValue');
             const langArray = targetObjects[linkObject].hreflang;
@@ -698,30 +781,29 @@ function showResult(data) {
             }
             t = t.substring(0, t.lastIndexOf(','));
             vSpan.appendChild(document.createTextNode(t));
-            toLi.appendChild(vSpan);
-            toUl.appendChild(toLi);
+            dd.appendChild(vSpan);
+            //dl.appendChild(dd);
           }
 
           // Finally, context
 
           if (targetObjects[linkObject].context !== undefined){
-            toLi = document.createElement('li');
+            dd = document.createElement('dd');
+            dd.className = 'context';
             attSpan = document.createElement('span');
             attSpan.classList.add('toAttribute');
             attSpan.appendChild(document.createTextNode('Context'));
-            toLi.appendChild(attSpan);
+            dd.appendChild(attSpan);
             vSpan = document.createElement('span');
             vSpan.classList.add('toValue');
             vSpan.appendChild(document.createTextNode(targetObjects[linkObject].context));
-            toLi.appendChild(vSpan);
-            toUl.appendChild(toLi);
+            dd.appendChild(vSpan);
+            dl.appendChild(dd);
           }
-          li.appendChild(toUl);
         }
-        ul.appendChild(li);
       }
     }
-    l2sd.appendChild(ul);
+    l2sd.appendChild(dl);
     let d = new Date(ls.unixtime * 1000);
     let p = document.createElement('p');
     p.appendChild(document.createTextNode(`Linkset last updated on ${d.toDateString()}. See also `));
