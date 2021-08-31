@@ -673,6 +673,7 @@ function showResult(data) {
           a = document.createElement('a');
           a.href = targetObjects[linkObject].href;
           a.target = '_blank';
+          a.title = 'Opens in new tab';
           a.appendChild(document.createTextNode(targetObjects[linkObject].href));
           vSpan.appendChild(a);
           dd.appendChild(vSpan);
