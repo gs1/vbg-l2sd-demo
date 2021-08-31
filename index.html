@@ -458,7 +458,10 @@ function showResult(data) {
     status.appendChild(span);
     span = document.createElement('span');
     span.id = 'dataSource';
-    span.appendChild(document.createTextNode(`The number is registered to the company ${data.licenseeName}`));
+    span.appendChild(document.createTextNode(`The number is registered to the company `));
+    let strong = document.createElement('strong');
+    strong.appendChild(document.createTextNode(`${data.licenseeName}`));
+    span.appendChild(strong);
     status.appendChild(span);
    } else {
     status.classList.add('notComplete');
@@ -648,7 +651,7 @@ function showResult(data) {
         let a = document.createElement('a');
         a.classList.add('linkType');
         a.href = lsKeys[i];
-        a.appendChild(document.createTextNode(linkTypes.find(x => x.url === lsKeys[i]).title));
+        a.appendChild(document.createTextNode(linkTypes.find(x => x.url === lsKeys[i]).l2sdTitle)); // Very brittle as uses l2sdTitle, only present in 3 link types
         dt.appendChild(a);
         dl.appendChild(dt);
         // For each link type, we have an arragy of target links - link objects.
@@ -889,7 +892,200 @@ function getPayload() { // Not strictly necessary to put this in a function but 
   return payload;
 }
 
-const linkTypes = [{"title":"Default link","description":"The default link for a given identified item to which a resolver will redirect unless there is information in the request that is a better match.","curie":"gs1:defaultLink","url":"https://gs1.org/voc/defaultLink"},{"title":"Default linkMulti","description":"A set of 'default links' that may be differentiated by information in the HTTP request headers sent to a resolver to enable a better match than the single default link.","curie":"gs1:defaultLinkMulti","url":"https://gs1.org/voc/defaultLinkMulti"},{"title":"Activity Ideas","description":"A link to ideas for using the product, particularly with children.","curie":"gs1:activityIdeas","url":"https://gs1.org/voc/activityIdeas"},{"title":"Allergen information","description":"A link to a description of the allergens in the product.","curie":"gs1:allergenInfo","url":"https://gs1.org/voc/allergenInfo"},{"title":"Information for professionals about this brand","description":"A link to a brand presence aimed at clinical professionals.","curie":"gs1:brandHomepageClinical","url":"https://gs1.org/voc/brandHomepageClinical"},{"title":"Information for patients about this brand","description":"A link to a brand presence aimed at patients.","curie":"gs1:brandHomepagePatient","url":"https://gs1.org/voc/brandHomepagePatient"},{"title":"Certification Information","description":"A link to certification information about the product.","curie":"gs1:certificationInfo","url":"https://gs1.org/voc/certificationInfo"},{"title":"Consumer handling and storage information","description":"A link to information about safe handling and storage of the product.","curie":"gs1:consumerHandlingStorageInfo","url":"https://gs1.org/voc/consumerHandlingStorageInfo"},{"title":"EPC Information Services (EPCIS) repository","description":"A link to an EPCIS repository of visibility event data.","curie":"gs1:epcis","url":"https://gs1.org/voc/epcis"},{"title":"Electronic Patient Information Leaflet","description":"A link to an electronic patient information leaflet.","curie":"gs1:epil","url":"https://gs1.org/voc/epil"},{"title":"Frequently Asked Questions","description":"A link to a set of frequently asked questions.","curie":"gs1:faqs","url":"https://gs1.org/voc/faqs"},{"title":"Handled by","description":"Used when one resolver redirects all request URIs that match a given pattern without further processing, such as from GS1 to a brand-operated service. See section 7.7.1 of the Digital Link standard, version 1.1. ","curie":"gs1:handledBy","url":"https://gs1.org/voc/handledBy"},{"title":"Has Retailers","description":"A link to a list of retailers for this item","curie":"gs1:hasRetailers","url":"https://gs1.org/voc/hasRetailers"},{"title":"Ingredients information","description":"A link to facts about the product's ingredients.","curie":"gs1:ingredientsInfo","url":"https://gs1.org/voc/ingredientsInfo"},{"title":"Instructions","description":"A link to instructions related to the item, such as assembly instructions, usage tips etc.","curie":"gs1:instructions","url":"https://gs1.org/voc/instructions"},{"title":"Leave a review","description":"A link through which a review can be added.","curie":"gs1:leaveReview","url":"https://gs1.org/voc/leaveReview"},{"title":"Master data","description":"A link to a source of structured master data for the entity. This is typically for B2B applications.","curie":"gs1:masterData","url":"https://gs1.org/voc/masterData"},{"title":"Nutritional Information","description":"A link to nutritional facts about the product.","curie":"gs1:nutritionalInfo","url":"https://gs1.org/voc/nutritionalInfo"},{"title":"Product Information Page","description":"A link to information specifically about the identified item, typically operated by the brand owner or a retailer of the product and aimed at consumers. It may include links to further information, product description, specifications etc.","curie":"gs1:pip","url":"https://gs1.org/voc/pip"},{"title":"Sustainability and recycling","description":"A link to information about the product's sustainability of manufacture, recycling information etc.","curie":"gs1:productSustainabilityInfo","url":"https://gs1.org/voc/productSustainabilityInfo"},{"title":"Promotion","description":"A link to a promotion for the product.","curie":"gs1:promotion","url":"https://gs1.org/voc/promotion"},{"title":"Purchase supplies or accessories","description":"A link to information about where supplies or accessories for the item can be purchased or ordered.","curie":"gs1:purchaseSuppliesOrAccessories","url":"https://gs1.org/voc/purchaseSuppliesOrAccessories"},{"title":"Quick start guide","description":"A link to a description of the key features needed to be understood to begin using the item.","curie":"gs1:quickStartGuide","url":"https://gs1.org/voc/quickStartGuide"},{"title":"Recall status","description":"A link to information about whether the product has been recalled or not, typically an API.","curie":"gs1:recallStatus","url":"https://gs1.org/voc/recallStatus"},{"title":"Recipe website","description":"A link to a recipe website for the product.","curie":"gs1:recipeInfo","url":"https://gs1.org/voc/recipeInfo"},{"title":"Register purchase","description":"A link to an entry point for registering ownership of a product including for warranty purposes.","curie":"gs1:registerProduct","url":"https://gs1.org/voc/registerProduct"},{"title":"Related video","description":"A link to any video, or document that has an embedded video, that describes or relates to the identified item in some way.","curie":"gs1:relatedVideo","url":"https://gs1.org/voc/relatedVideo"},{"title":"Reviews","description":"A link to reviews of the product or service.","curie":"gs1:review","url":"https://gs1.org/voc/review"},{"title":"Safety information","description":"A link to safety information about the item","curie":"gs1:safetyInfo","url":"https://gs1.org/voc/safetyInfo"},{"title":"Service information","description":"A link to service or maintenance instructions for the item.","curie":"gs1:serviceInfo","url":"https://gs1.org/voc/serviceInfo"},{"title":"SmartLabel","description":"A link to the product's SmartLabel page.","curie":"gs1:smartLabel","url":"https://gs1.org/voc/smartLabel"},{"title":"Summary Product Characteristics (SmPC)","description":"A link to Summary Product Characteristics. To be used specifically when linking to information for healthcare professionals.","curie":"gs1:smpc","url":"https://gs1.org/voc/smpc"},{"title":"Social media","description":"A link to a social media channel. The title will typically be replaced by the name of the channel.","curie":"gs1:socialMedia","url":"https://gs1.org/voc/socialMedia"},{"title":"Support","description":"A link to a source of support such as a helpdesk, chat support, email etc.","curie":"gs1:support","url":"https://gs1.org/voc/support"},{"title":"Traceability information","description":"A link to traceability information about the product (includes track & trace).","curie":"gs1:traceability","url":"https://gs1.org/voc/traceability"},{"title":"Tutorial","description":"A link to a tutorial or set of tutorials, such as online classes, how-to videos etc.","curie":"gs1:tutorial","url":"https://gs1.org/voc/tutorial"},{"title":"Verification Service","description":"A link to a GS1 Lightweight Messaging Service for verifying the status of a product and its identifier . ","curie":"gs1:verificationService","url":"https://gs1.org/voc/verificationService"},{"title":"What's in the box?","description":"A link to a description of all the individual items in a packaged item.","curie":"gs1:whatsInTheBox","url":"https://gs1.org/voc/whatsInTheBox"}];
+const linkTypes = [{
+	"title": "Default link",
+	"description": "The default link for a given identified item to which a resolver will redirect unless there is information in the request that is a better match.",
+	"curie": "gs1:defaultLink",
+	"url": "https://gs1.org/voc/defaultLink"
+}, {
+	"title": "Default linkMulti",
+	"description": "A set of 'default links' that may be differentiated by information in the HTTP request headers sent to a resolver to enable a better match than the single default link.",
+	"curie": "gs1:defaultLinkMulti",
+	"url": "https://gs1.org/voc/defaultLinkMulti"
+}, {
+	"title": "Activity Ideas",
+	"description": "A link to ideas for using the product, particularly with children.",
+	"curie": "gs1:activityIdeas",
+	"url": "https://gs1.org/voc/activityIdeas"
+}, {
+	"title": "Allergen information",
+	"description": "A link to a description of the allergens in the product.",
+	"curie": "gs1:allergenInfo",
+	"url": "https://gs1.org/voc/allergenInfo"
+}, {
+	"title": "Information for professionals about this brand",
+	"description": "A link to a brand presence aimed at clinical professionals.",
+	"curie": "gs1:brandHomepageClinical",
+	"url": "https://gs1.org/voc/brandHomepageClinical"
+}, {
+	"title": "Information for patients about this brand",
+	"description": "A link to a brand presence aimed at patients.",
+	"curie": "gs1:brandHomepagePatient",
+	"url": "https://gs1.org/voc/brandHomepagePatient"
+}, {
+	"title": "Certification Information",
+	"description": "A link to certification information about the product.",
+	"curie": "gs1:certificationInfo",
+	"url": "https://gs1.org/voc/certificationInfo"
+}, {
+	"title": "Consumer handling and storage information",
+	"description": "A link to information about safe handling and storage of the product.",
+	"curie": "gs1:consumerHandlingStorageInfo",
+	"url": "https://gs1.org/voc/consumerHandlingStorageInfo"
+}, {
+	"title": "EPC Information Services (EPCIS) repository",
+	"description": "A link to an EPCIS repository of visibility event data.",
+	"curie": "gs1:epcis",
+	"url": "https://gs1.org/voc/epcis"
+}, {
+	"title": "Electronic Patient Information Leaflet",
+	"description": "A link to an electronic patient information leaflet.",
+	"curie": "gs1:epil",
+	"url": "https://gs1.org/voc/epil"
+}, {
+	"title": "Frequently Asked Questions",
+	"description": "A link to a set of frequently asked questions.",
+	"curie": "gs1:faqs",
+	"url": "https://gs1.org/voc/faqs"
+}, {
+	"title": "Handled by",
+	"description": "Used when one resolver redirects all request URIs that match a given pattern without further processing, such as from GS1 to a brand-operated service. See section 7.7.1 of the Digital Link standard, version 1.1. ",
+	"curie": "gs1:handledBy",
+	"url": "https://gs1.org/voc/handledBy"
+}, {
+	"title": "Has Retailers",
+	"description": "A link to a list of retailers for this item",
+	"curie": "gs1:hasRetailers",
+	"url": "https://gs1.org/voc/hasRetailers"
+}, {
+	"title": "Ingredients information",
+	"description": "A link to facts about the product's ingredients.",
+	"curie": "gs1:ingredientsInfo",
+	"url": "https://gs1.org/voc/ingredientsInfo"
+}, {
+	"title": "Instructions",
+	"description": "A link to instructions related to the item, such as assembly instructions, usage tips etc.",
+	"curie": "gs1:instructions",
+	"url": "https://gs1.org/voc/instructions"
+}, {
+	"title": "Leave a review",
+	"description": "A link through which a review can be added.",
+	"curie": "gs1:leaveReview",
+	"url": "https://gs1.org/voc/leaveReview"
+}, {
+	"title": "Master data",
+	"description": "A link to a source of structured master data for the entity. This is typically for B2B applications.",
+	"curie": "gs1:masterData",
+	"url": "https://gs1.org/voc/masterData"
+}, {
+	"title": "Nutritional Information",
+	"description": "A link to nutritional facts about the product.",
+	"curie": "gs1:nutritionalInfo",
+	"url": "https://gs1.org/voc/nutritionalInfo"
+}, {
+	"title": "Product Information Page",
+	"description": "A link to information specifically about the identified item, typically operated by the brand owner or a retailer of the product and aimed at consumers. It may include links to further information, product description, specifications etc.",
+	"curie": "gs1:pip",
+	"url": "https://gs1.org/voc/pip",
+  "l2sdTitle": "Product information"
+}, {
+	"title": "Sustainability and recycling",
+	"description": "A link to information about the product's sustainability of manufacture, recycling information etc.",
+	"curie": "gs1:productSustainabilityInfo",
+	"url": "https://gs1.org/voc/productSustainabilityInfo",
+  "l2sdTitle" : "Sustainability"
+}, {
+	"title": "Promotion",
+	"description": "A link to a promotion for the product.",
+	"curie": "gs1:promotion",
+	"url": "https://gs1.org/voc/promotion"
+}, {
+	"title": "Purchase supplies or accessories",
+	"description": "A link to information about where supplies or accessories for the item can be purchased or ordered.",
+	"curie": "gs1:purchaseSuppliesOrAccessories",
+	"url": "https://gs1.org/voc/purchaseSuppliesOrAccessories"
+}, {
+	"title": "Quick start guide",
+	"description": "A link to a description of the key features needed to be understood to begin using the item.",
+	"curie": "gs1:quickStartGuide",
+	"url": "https://gs1.org/voc/quickStartGuide"
+}, {
+	"title": "Recall status",
+	"description": "A link to information about whether the product has been recalled or not, typically an API.",
+	"curie": "gs1:recallStatus",
+	"url": "https://gs1.org/voc/recallStatus"
+}, {
+	"title": "Recipe website",
+	"description": "A link to a recipe website for the product.",
+	"curie": "gs1:recipeInfo",
+	"url": "https://gs1.org/voc/recipeInfo",
+  "l2sdTitle": "Recipes"
+}, {
+	"title": "Register purchase",
+	"description": "A link to an entry point for registering ownership of a product including for warranty purposes.",
+	"curie": "gs1:registerProduct",
+	"url": "https://gs1.org/voc/registerProduct"
+}, {
+	"title": "Related video",
+	"description": "A link to any video, or document that has an embedded video, that describes or relates to the identified item in some way.",
+	"curie": "gs1:relatedVideo",
+	"url": "https://gs1.org/voc/relatedVideo"
+}, {
+	"title": "Reviews",
+	"description": "A link to reviews of the product or service.",
+	"curie": "gs1:review",
+	"url": "https://gs1.org/voc/review"
+}, {
+	"title": "Safety information",
+	"description": "A link to safety information about the item",
+	"curie": "gs1:safetyInfo",
+	"url": "https://gs1.org/voc/safetyInfo"
+}, {
+	"title": "Service information",
+	"description": "A link to service or maintenance instructions for the item.",
+	"curie": "gs1:serviceInfo",
+	"url": "https://gs1.org/voc/serviceInfo"
+}, {
+	"title": "SmartLabel",
+	"description": "A link to the product's SmartLabel page.",
+	"curie": "gs1:smartLabel",
+	"url": "https://gs1.org/voc/smartLabel"
+}, {
+	"title": "Summary Product Characteristics (SmPC)",
+	"description": "A link to Summary Product Characteristics. To be used specifically when linking to information for healthcare professionals.",
+	"curie": "gs1:smpc",
+	"url": "https://gs1.org/voc/smpc"
+}, {
+	"title": "Social media",
+	"description": "A link to a social media channel. The title will typically be replaced by the name of the channel.",
+	"curie": "gs1:socialMedia",
+	"url": "https://gs1.org/voc/socialMedia"
+}, {
+	"title": "Support",
+	"description": "A link to a source of support such as a helpdesk, chat support, email etc.",
+	"curie": "gs1:support",
+	"url": "https://gs1.org/voc/support"
+}, {
+	"title": "Traceability information",
+	"description": "A link to traceability information about the product (includes track & trace).",
+	"curie": "gs1:traceability",
+	"url": "https://gs1.org/voc/traceability"
+}, {
+	"title": "Tutorial",
+	"description": "A link to a tutorial or set of tutorials, such as online classes, how-to videos etc.",
+	"curie": "gs1:tutorial",
+	"url": "https://gs1.org/voc/tutorial"
+}, {
+	"title": "Verification Service",
+	"description": "A link to a GS1 Lightweight Messaging Service for verifying the status of a product and its identifier . ",
+	"curie": "gs1:verificationService",
+	"url": "https://gs1.org/voc/verificationService"
+}, {
+	"title": "What's in the box?",
+	"description": "A link to a description of all the individual items in a packaged item.",
+	"curie": "gs1:whatsInTheBox",
+	"url": "https://gs1.org/voc/whatsInTheBox"
+}];
 
 
 /* Other Dal Giardino data (not currently used)
