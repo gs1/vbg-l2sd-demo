@@ -215,6 +215,14 @@
       margin-top: 1em;
     }
 
+    section#l2sd dl#linkset dd.href a {
+      background-position: center right;
+      background-repeat: no-repeat;
+      background-image: url(external-link-ltr-icon.png);
+      padding-right: 13px;
+    }
+
+
     section#l2sd dl#linkset dd.first {
       border-top:none;
     }
@@ -450,7 +458,7 @@ function showResult(data) {
     status.appendChild(span);
     span = document.createElement('span');
     span.id = 'dataSource';
-    span.appendChild(document.createTextNode(`The number is registered to ${data.licenseeName}`));
+    span.appendChild(document.createTextNode(`The number is registered to the company ${data.licenseeName}`));
     status.appendChild(span);
    } else {
     status.classList.add('notComplete');
@@ -664,6 +672,7 @@ function showResult(data) {
           vSpan.classList.add('toValue');
           a = document.createElement('a');
           a.href = targetObjects[linkObject].href;
+          a.target = '_blank';
           a.appendChild(document.createTextNode(targetObjects[linkObject].href));
           vSpan.appendChild(a);
           dd.appendChild(vSpan);
@@ -786,32 +795,6 @@ function getPayload() { // Not strictly necessary to put this in a function but 
       "anchor": "https://id.gs1.org/01/09506000134352/",
       "itemDescription": "Dal Giardino Risotto Rice with Mushrooms 411g",
       "unixtime": 1613175792,
-      "https://gs1.org/voc/hasRetailers": [
-        {
-          "href": "https://dalgiardino.com/where-to-buy/",
-          "title": "Where to buy",
-          "type": "text/html",
-          "hreflang": [
-            "en", "es", "vi"
-          ]
-        },
-        {
-          "href": "https://dalgiardino.com/where-to-buy/index.html.es",
-          "title": "Donde comprar Dal Giardino",
-          "type": "text/html",
-          "hreflang": [
-            "es"
-          ]
-        },
-        {
-          "href": "https://dalgiardino.com/where-to-buy/index.html.vi",
-          "title": "Nơi bán",
-          "type": "text/html",
-          "hreflang": [
-            "vi"
-          ]
-        }
-      ],
       "https://gs1.org/voc/pip": [
         {
           "href": "https://dalgiardino.com/risotto-rice-with-mushrooms/",
